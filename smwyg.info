@@ -1,0 +1,4 @@
+name = Show me what you got
+description = Create a list of content on request from a user via an admin form
+core = 7.x
+configure = admin/config/content/smwyg
