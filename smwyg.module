@@ -93,7 +93,6 @@ function _smwyg_ajax_get_node_selection_options($key) {
   if (isset($key)) {
     //Get the node data.
     $q = db_select('node', 'n')
-//      ->range(0,10)
       ->fields('n', ['nid'])
       ->condition('type', $key)
       ->condition('status', TRUE)
