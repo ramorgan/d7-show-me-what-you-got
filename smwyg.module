@@ -180,13 +180,17 @@ function smwyg_block_view_smwyg_test_display() {
     ->fields('s', [])
     ->condition('path', $current_path_alias);
   $results = $query->execute()->fetch();
-  $nids = json_decode($results->nids);
+  if (!empty($results)) {
+    $nids = json_decode($results->nids);
+  }
   $rendered = '';
-  foreach ($nids as $nid) {
-    $node = node_load($nid);
-    $view = node_view($node, 'teaser');
-    $rendered .= drupal_render($view);
+  if (isset($nid) && !empty($nids)) {
+    foreach ($nids as $nid) {
+      $node = node_load($nid);
+      $view = node_view($node, 'teaser');
+      $rendered .= drupal_render($view);
+    }
+
   }
   return $rendered;
 }
-
