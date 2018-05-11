@@ -53,15 +53,11 @@ function smwyg_create_new_form($form, &$form_state) {
 
   // Build the sortable table header.
   $header = [
-    'title'   => ['data' => t('Title'), 'field' => 'n.title',],
-    'type'  => ['data' => t('Type'), 'field' => 'n.type',],
+    'title'   => ['data' => t('Title')],
+    'type'  => ['data' => t('Type')],
     'author'  => t('Author'),
-    'status'  => ['data' => t('Status'), 'field' => 'n.status',],
-    'changed' => [
-      'data' => t('updated'),
-      'field' => 'n.changed',
-      'sort' => 'desc',
-    ],
+    'status'  => ['data' => t('Status')],
+    'changed' => ['data' => t('updated'),],
   ];
 
   $form['node_selection'] = [
