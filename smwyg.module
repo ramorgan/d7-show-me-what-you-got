@@ -97,7 +97,7 @@ function _smwyg_ajax_get_node_selection_options($key) {
 //      ->range(0,10)
       ->fields('n', ['nid'])
       ->condition('type', $key)
-    ;
+      ->orderBy('changed', 'DESC');
 
     $nids = $q->execute()->fetchCol();
     $nodes = node_load_multiple($nids);
