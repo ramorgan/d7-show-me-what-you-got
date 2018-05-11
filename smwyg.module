@@ -49,15 +49,14 @@ function smwyg_create_new_form($form, &$form_state) {
     $form['node_type']['#defalut_value'] = $selected;
   }
 
-
-
   // Build the sortable table header.
   $header = [
     'title'   => ['data' => t('Title')],
     'type'  => ['data' => t('Type')],
     'author'  => t('Author'),
     'status'  => ['data' => t('Status')],
-    'changed' => ['data' => t('updated'),],
+    'changed' => ['data' => t('Updated'),],
+    'created' => ['data' => t('Created'),],
   ];
 
   $form['node_selection'] = [
@@ -110,6 +109,7 @@ function _smwyg_ajax_get_node_selection_options($key) {
         'author' => theme('username', ['account' => $node]),
         'status' => $node->status ? t('published') : t('not published'),
         'changed' => format_date($node->changed, 'short'),
+        'created' => format_date($node->created, 'short'),
       ];
     }
     return $options;
