@@ -194,3 +194,39 @@ function smwyg_block_view_smwyg_test_display() {
   }
   return $rendered;
 }
+
+
+function smwyg_page_list() {
+  // Build the table header.
+  $header = ['id', 'Author', 'Path', 'Nodes'];
+  $rows = [];
+  // @todo: make limit variable.
+  $query = db_select('smwyg', 's')
+    ->extend('PagerDefault')->limit(10)
+    ->fields('s', []);
+  $results = $query->execute()->fetchAll();
+  foreach ($results as $value) {
+    // Get node titles
+    $titles = '';
+    $nodes = node_load_multiple(json_decode($value->nids));
+    foreach ($nodes as $node) {
+      if (empty($titles)) {
+        $titles = $node->title;
+      }
+      else{
+        $titles .= ",&nbsp;" . $node->title;
+      }
+    }
+    $row= [
+      'id'=> $value->id,
+      'Author' => theme('username', ['account' => user_load($value->uid)]),
+      'Path' => l($value->path, $value->path),
+      'Nodes' =>$titles
+    ];
+
+    $rows[]= $row;
+  }
+  $output = theme('table', array('header' => $header, 'rows' => $rows));
+  $output .= theme('pager');
+  return $output;
+}
