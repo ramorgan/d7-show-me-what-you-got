@@ -12,7 +12,14 @@ function smwyg_menu() {
     'description' => '',
     'page callback' => 'drupal_get_form',
     'page arguments' => ['smwyg_create_new_form'],
-    'access callback' => TRUE,
+    'access arguments' => ['administer nodes'],
+  ];
+
+  $items['admin/content/smwyg/list'] = [
+    'title' => "List all Show Me What You Got items",
+    'description' => '',
+    'page callback' => 'smwyg_page_list',
+    'access arguments' => ['administer nodes'],
   ];
 
   return $items;
@@ -55,7 +62,7 @@ function smwyg_create_new_form($form, &$form_state) {
     $form['node_type']['#defalut_value'] = $selected;
   }
 
-  // Build the sortable table header.
+  // Build the table header.
   $header = [
     'title' => ['data' => t('Title')],
     'type' => ['data' => t('Type')],
@@ -182,3 +189,4 @@ function smwyg_block_view_smwyg_test_display() {
   }
   return $rendered;
 }
+
