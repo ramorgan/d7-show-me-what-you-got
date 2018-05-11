@@ -1,0 +1,39 @@
+<?php
+
+function smwyg_schema() {
+
+  $schema['smwyg'] = [
+    'description' => 'Holds data for Show me what you Got module.',
+    'fields' => [
+      'id' => [
+        'description' => 'The primary identifier for an item.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ],
+      'uid' => [
+        'description' => 'id of user who created the item.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'path' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+      'nids' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ],
+    ],
+    'primary key' => ['id'],
+    'unique keys' => [
+      'path' => ['path'],
+    ]
+  ];
+  return $schema;
+}
