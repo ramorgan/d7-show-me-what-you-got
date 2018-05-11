@@ -172,8 +172,13 @@ function smwyg_block_view_smwyg_test_display() {
   $query = db_select('smwyg', 's')
     ->fields('s', [])
     ->condition('path', $current_path_alias);
-  dpq($query);
   $results = $query->execute()->fetch();
-  dpm($results);
-  return 'this is a test';
+  $nids = json_decode($results->nids);
+  $rendered = '';
+  foreach ($nids as $nid) {
+    $node = node_load($nid);
+    $view = node_view($node, 'teaser');
+    $rendered .= drupal_render($view);
+  }
+  return $rendered;
 }
