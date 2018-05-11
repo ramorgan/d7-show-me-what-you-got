@@ -114,3 +114,43 @@ function _smwyg_ajax_get_node_selection_options($key) {
     return $options;
   }
 }
+
+
+/**
+ * Implements hook_block_info().
+ */
+function smwyg_block_info() {
+  $blocks['smwyg_test_display'] = [
+    'info' => t('SHOW ME WHAT YOU GOT!'),
+  ];
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function smwyg_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'smwyg_test_display' :
+      $block['content'] = smwyg_block_view_smwyg_test_display();
+      break;
+  }
+
+  return $block;
+}
+
+function smwyg_block_view_smwyg_test_display() {
+  $current_path = current_path();
+  $current_path_alias = request_path();
+
+  $query = db_select('smwyg', 's')
+    ->fields('s', [])
+    ->condition('path', $current_path_alias)
+  ;
+  dpq($query);
+  $results = $query->execute()->fetch();
+  dpm($results);
+  return 'this is a test';
+}
